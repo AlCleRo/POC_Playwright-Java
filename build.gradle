@@ -1,0 +1,92 @@
+buildscript {
+    ext {
+        cucumber_version = '7.7.0'
+        allure_version = '2.8.1'
+        allure_plugin_version = '2.22.0'
+        selenide_version = '5.3.1'
+        log4j_version = '1.2.17'
+        slf4j_version = '1.7.21'
+        gherkin_version = '2.12.2'
+        playwright_version = '1.31.0'
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+}
+
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.8.1'
+    id 'maven-publish'
+    id 'application'
+}
+
+application {
+    mainClass = 'com.microsoft.playwright.CLI'
+}
+
+apply plugin: 'java'
+
+dependencies {
+    implementation "log4j:log4j:$log4j_version"
+    implementation "org.slf4j:slf4j-simple:$slf4j_version"
+    implementation "info.cukes:gherkin:$gherkin_version"
+    implementation "io.cucumber:cucumber-junit:$cucumber_version"
+    implementation "io.cucumber:cucumber-java:$cucumber_version"
+    implementation "io.cucumber:cucumber-picocontainer:$cucumber_version"
+    implementation "com.microsoft.playwright:playwright:$playwright_version"
+    implementation "io.qameta.allure:allure-cucumber7-jvm:${allure_plugin_version}"
+    implementation "com.codeborne:selenide:${selenide_version}"
+    implementation "io.qameta.allure:allure-selenide:${allure_plugin_version}"
+    implementation 'org.jetbrains:annotations:20.1.0'
+}
+
+
+allprojects{
+    group = 'PLAYWRIGHT'
+    version = '1.0.0'
+    description = 'Playwright bdd testing project'
+    sourceCompatibility = '1.8'
+
+    apply plugin: 'java'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    test {
+        systemProperties(System.getProperties())
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+}
+
+configurations {
+    testCompile
+}
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            systemProperty("allure.results.directory", "target/allure-results")
+        }
+    }
+}
+
+allure {
+    version = allure_version
+    autoconfigure = true
+    aspectjweaver = true
+}
+
+cucumber.finalizedBy 'allureReport'
