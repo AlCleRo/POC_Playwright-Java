@@ -9,9 +9,9 @@
 
 # Diagrama código
 
-![Diagrama codigo](https://github.com/AlCleRo/POC_Playwright-Java-OSCommerce/assets/107319613/141612f4-61b5-420f-845d-fde8c587bff3)
+![Diagrama codigo](![Diagrama codigo](assets/Diagrama_codigo.png))
 
 
 # Esquema integración/funcionamiento
 
-![Diagrama Playwright-Java-OSCommerce](https://github.com/AlCleRo/POC_Playwright-Java-OSCommerce/assets/107319613/1c8cb23a-f485-4c0e-ad69-dcabd0f6f1b6)
+![Diagrama Playwright-Java-OSCommerce](assets/Diagrama_Playwright-Java.png)
