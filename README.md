@@ -9,7 +9,7 @@
 
 # Diagrama código
 
-![Diagrama codigo](![Diagrama codigo](assets/Diagrama_codigo.png))
+![Diagrama codigo](assets/Diagrama_codigo.png)
 
 
 # Esquema integración/funcionamiento
